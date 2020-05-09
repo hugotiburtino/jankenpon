@@ -1,25 +1,31 @@
-def alternative_choices(option):
-    if option == 'r':
-        option = 'rock'
-    if option == 's':
-        option = 'scissors'
-    if option == 'p':
-        option = 'paper'
-    if option == 'y':
-        option = 'yes'
-    if option == 'n':
-        option = 'no'
-    return option
+def interpret_abbreviation(user_input):
+    if user_input == 'r':
+        user_input = 'rock'
+    if user_input == 's':
+        user_input = 'scissors'
+    if user_input == 'p':
+        user_input = 'paper'
+    if user_input == 'y':
+        user_input = 'yes'
+    if user_input == 'n':
+        user_input = 'no'
+    if user_input == 'q':
+        user_input = 'quit'
+    if user_input == 'exit':
+        user_input = 'quit'
+    if user_input == 'e':
+        user_input = 'quit'
+    return user_input
 
 
-def valid_option(prompt, possibilities):
+def hinder_invalid_input(prompt_message, possibilities):
     while True:
-        option = input().lower()
-        option = alternative_choices(option)
-        if option in possibilities:
-            return option
+        user_input = input().lower()
+        user_input = interpret_alias(user_input)
+        if user_input in possibilities:
+            return user_input
         else:
-            print(prompt)
+            print(prompt_message)
 
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or

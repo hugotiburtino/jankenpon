@@ -1,5 +1,5 @@
 import random
-from tools import alternative_choices, valid_option, beats
+from tools import hinder_invalid_input
 
 MOVES = ['rock', 'paper', 'scissors']
 
@@ -20,7 +20,7 @@ class Player:
 class HumanPlayer(Player):
     def move(self):
         checkspelling = 'Move not valid. Please check the spelling.'
-        myMove = valid_option(checkspelling, MOVES)
+        myMove = hinder_invalid_input(checkspelling, MOVES)
         return myMove
 
     def tactic(self):

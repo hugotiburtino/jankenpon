@@ -12,7 +12,7 @@ from player_classes import (Player, HumanPlayer,
                             RockPlayer, CyclePlayer,
                             BadLuckPlayer, InteligentReflectPlayer,
                             ReflectPlayer, RandomPlayer, MOVES)
-from tools import alternative_choices, valid_option, beats
+from tools import hinder_invalid_input, beats
 
 
 class Game:
@@ -30,7 +30,7 @@ class Game:
         self.chooseGame()
 
     def chooseGame(self):
-        self.game_option = valid_option(MENU_OPTIONS_PROMPT , MENU_OPTIONS)
+        self.game_option = hinder_invalid_input(MENU_OPTIONS_PROMPT , MENU_OPTIONS)
 
         if self.game_option == '1':
             self.p1 = HumanPlayer()
@@ -83,10 +83,10 @@ class Game:
         self.WhoWon()
         print("\n    Game over!\n")
         print('Do you want to play again? (yes or no)')
-        play_again = valid_option(SORRY_YES_NO, 'yes no')
+        play_again = hinder_invalid_input(SORRY_YES_NO, 'yes no')
         if play_again == 'yes':
             print('Do you want to know your opponent\'s strategy? (yes or no)')
-            reveal_mode = valid_option(SORRY_YES_NO, 'yes no')
+            reveal_mode = hinder_invalid_input(SORRY_YES_NO, 'yes no')
             if reveal_mode == 'yes':
                 self.revealStrategyMode = True
             else:
@@ -114,7 +114,7 @@ class Game:
         self.WhoWon()
         print("\n   Game over!\n\n" +
               'Do you want to watch another match? (yes or no)')
-        otherMatch = valid_option(SORRY_YES_NO, 'yes no')
+        otherMatch = hinder_invalid_input(SORRY_YES_NO, 'yes no')
         if otherMatch == 'yes':
             self.p1 = random.choice(self.oponents)
             self.p2 = random.choice(self.oponents)
