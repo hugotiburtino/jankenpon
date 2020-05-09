@@ -2,9 +2,7 @@ FROM python:3-alpine
 
 WORKDIR /app
 
-COPY jankenpon.py ./
-COPY tools.py ./
-COPY player_classes.py ./
-COPY resources.py ./
+COPY main.py ./
+ADD jankenpon ./jankenpon
 
-CMD ["python", "jankenpon.py"]
+CMD ["python", "main.py"]
