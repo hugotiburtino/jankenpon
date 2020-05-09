@@ -4,6 +4,15 @@ from jankenpon.tools import hinder_invalid_input
 MOVES = ['rock', 'paper', 'scissors']
 
 class Player:
+
+    name = ''
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_name(self):
+        return self.name
+
     def move(self):
         pass
 
