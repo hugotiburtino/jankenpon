@@ -21,7 +21,7 @@ def interpret_abbreviation(user_input):
 def hinder_invalid_input(prompt_message, possibilities):
     while True:
         user_input = input().lower()
-        user_input = interpret_alias(user_input)
+        user_input = interpret_abbreviation(user_input)
         if user_input in possibilities:
             return user_input
         else:
