@@ -20,8 +20,8 @@ class Game:
         print(INTRO)
         self.point_P1 = 0
         self.point_P2 = 0
-        self.myName = ''
-        self.ComputerName = ''
+        self.my_name = ''
+        self.computer_name = ''
         self.opon = 0
         self.oponents = [BadLuckPlayer(), InteligentReflectPlayer(),
                          ReflectPlayer(), CyclePlayer(),
@@ -35,14 +35,14 @@ class Game:
         if self.game_option == '1':
             self.p1 = HumanPlayer()
             self.p2 = random.choice(self.oponents)
-            self.getPlayerName()
-            self.getComputerName()
-            self.game_humVscomp()
+            self.get_player_name()
+            self.get_computer_name()
+            self.game_hum_vs_comp()
 
         elif self.game_option == '2':
             self.p1 = random.choice(self.oponents)
             self.p2 = random.choice(self.oponents)
-            self.game_compVscomp()
+            self.game_comp_vs_comp()
 
         elif self.game_option == '3':
             print(HOW_TO_PLAY)
@@ -55,18 +55,18 @@ class Game:
         else:
             self.chooseGame()
 
-    def getPlayerName(self):
+    def get_player_name(self):
         print('What is your name?')
-        self.myName = input()
-        if self.myName == '':
-            self.myName = 'Player 1'
+        self.my_name = input()
+        if self.my_name == '':
+            self.my_name = 'Player 1'
 
-    def getComputerName(self):
+    def get_computer_name(self):
         if self.opon == len(OPPONENT_NAMES) - 1:
             self.opon = 0
         else:
             self.opon += 1
-        self.ComputerName = OPPONENT_NAMES[self.opon]
+        self.computer_name = OPPONENT_NAMES[self.opon]
 
     def play_game_hum(self):
         print("\n     Game start!\n")
@@ -78,9 +78,9 @@ class Game:
                   's'+'\x1b[0m' + 'cissors?')
             self.play_round()
 
-    def game_humVscomp(self):
+    def game_hum_vs_comp(self):
         self.play_game_hum()
-        self.WhoWon()
+        self.get_who_won()
         print("\n    Game over!\n")
         print('Do you want to play again? (yes or no)')
         play_again = hinder_invalid_input(SORRY_YES_NO, 'yes no')
@@ -91,34 +91,34 @@ class Game:
                 self.revealStrategyMode = True
             else:
                 self.revealStrategyMode = False
-            self.getComputerName()
+            self.get_computer_name()
             self.p2 = random.choice(self.oponents)
-            self.game_humVscomp()
+            self.game_hum_vs_comp()
         else:
             self.__init__(Player(), Player())
 
     def play_game_com(self):
         print("\n   Game start!")
-        self.myName = random.choice(OPPONENT_NAMES)
-        self.ComputerName = random.choice(OPPONENT_NAMES)
-        if self.myName == self.ComputerName:
-            self.ComputerName = self.myName + ' Bad Twin'
+        self.my_name = random.choice(OPPONENT_NAMES)
+        self.computer_name = random.choice(OPPONENT_NAMES)
+        if self.my_name == self.computer_name:
+            self.computer_name = self.my_name + ' Bad Twin'
         for round in range(3):
             print('\n\x1b[6;37;41m' + f" X---- ROUND {round+1} ----X "
                   + '\x1b[0m\n')
             time.sleep(4)
             self.play_round()
 
-    def game_compVscomp(self):
+    def game_comp_vs_comp(self):
         self.play_game_com()
-        self.WhoWon()
+        self.get_who_won()
         print("\n   Game over!\n\n" +
               'Do you want to watch another match? (yes or no)')
         otherMatch = hinder_invalid_input(SORRY_YES_NO, 'yes no')
         if otherMatch == 'yes':
             self.p1 = random.choice(self.oponents)
             self.p2 = random.choice(self.oponents)
-            self.game_compVscomp()
+            self.game_comp_vs_comp()
         else:
             self.__init__(Player(), Player())
 
@@ -143,19 +143,19 @@ class Game:
         strategy1 = self.p1.tactic()
         strategy2 = self.p2.tactic()
         if strategy1 == '' and self.revealStrategyMode is False:
-            print('\x1b[31m' + f"{self.myName}" + '\x1b[0m' +
+            print('\x1b[31m' + f"{self.my_name}" + '\x1b[0m' +
                   f": {move1} {image1}" +
-                  '\x1b[34m' + f"{self.ComputerName}" + '\x1b[0m' +
+                  '\x1b[34m' + f"{self.computer_name}" + '\x1b[0m' +
                   f": {move2} {image2}")
         elif strategy1 == '' and self.revealStrategyMode is True:
-            print('\x1b[31m' + f"{self.myName}" + '\x1b[0m' +
+            print('\x1b[31m' + f"{self.my_name}" + '\x1b[0m' +
                   f" {strategy1}: {move1} {image1}" +
-                  '\x1b[34m' + f"{self.ComputerName}" + '\x1b[0m' +
+                  '\x1b[34m' + f"{self.computer_name}" + '\x1b[0m' +
                   f" {strategy2}: {move2} {image2}")
         else:
-            print('\x1b[31m' + f"{self.myName}" + '\x1b[0m' +
+            print('\x1b[31m' + f"{self.my_name}" + '\x1b[0m' +
                   f" {strategy1}: {move1} {image1}" +
-                  '\x1b[34m' + f"{self.ComputerName}" + '\x1b[0m' +
+                  '\x1b[34m' + f"{self.computer_name}" + '\x1b[0m' +
                   f" {strategy2}: {move2} {image2}")
         if beats(move1, move2) is True:
             self.point_P1 += 1
@@ -163,18 +163,18 @@ class Game:
             self.point_P2 += 1
         else:
             pass
-        print('\n\x1b[31m' + f"{self.myName}" + '\x1b[0m' +
+        print('\n\x1b[31m' + f"{self.my_name}" + '\x1b[0m' +
               f": {self.point_P1} point(s) X " +
-              '\x1b[34m' + f"{self.ComputerName}" + '\x1b[0m' +
+              '\x1b[34m' + f"{self.computer_name}" + '\x1b[0m' +
               f": {self.point_P2} point(s)")
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
-    def WhoWon(self):
+    def get_who_won(self):
         if self.point_P1 > self.point_P2:
-            print('\n\x1b[31m' + f'{self.myName} has won!' + '\x1b[0m')
+            print('\n\x1b[31m' + f'{self.my_name} has won!' + '\x1b[0m')
         if self.point_P1 < self.point_P2:
-            print('\n\x1b[34m' + f'{self.ComputerName} has won!' + '\x1b[0m')
+            print('\n\x1b[34m' + f'{self.computer_name} has won!' + '\x1b[0m')
         if self.point_P1 == self.point_P2:
             print('\n\x1b[1m' + 'It is a tie!' + '\x1b[0m')
         self.point_P1 = 0
