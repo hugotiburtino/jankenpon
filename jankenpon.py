@@ -5,99 +5,11 @@ and reports both Player's scores each round."""
 import random
 import time
 import sys
+from resources import (HANDS, HOW_TO_PLAY, MENU_IMAGE, MENU_OPTIONS, 
+                       MENU_OPTIONS_PROMPT, SORRY_YES_NO, INTRO,
+                       OPPONENT_NAMES, HOW_TO_PLAY)
 
-moves = ['rock', 'paper', 'scissors']
-
-graphics = ['''
-      .-.
-   __/ / )
-  / __)-' )
-  \  `(.-')
-   > ._>-'
-  / \/
-''', '''
-    .-.  _
-    | | / )_
-    | |/ // )
-   _|__ // //
-  / __)-'  /
-  \  `.-' /
-   > ._>-
-  / \/
-''', '''
-    .-.  _
-    | | / )
-    | |/ /
-   _|__ /_
-  / __)-' )
-  \  `(.-')
-   > ._>-'
-  / \/
-''', '''
-                     .-.  _             .-.
-                     | | / )_           | | / )
-      .-.            | |/ // )          | |/ /
-   __/ / )          _|__ // //         _|__ /_
-  / __)-' )        / __)-'  /         / __)-' )
-  \  `(.-')        \  `.-' /          \  `(.-')
-   > ._>-'          > ._>-             > ._>-'
-  / \/             / \/               / \/   ''']
-
-oponents_names = ['Rocky Balboa', 'Edwards Scissorhands', 'Paper Parker',
-                  'Joker', 'Bart']
-
-PLEASE_PROMPT = ('Please, choose "1", "2" or "3" (or "q" to quit) ' +
-                 'and press "Enter"')
-
-INTRO = ('\x1b[6;37;41m' + '             ####  JANKENPON  ####' +
-         '                  ' + '\x1b[0m' + graphics[3] +
-         '\n          ___________________________\n'
-         '         |                           |\n'
-         '         |    1. You vs. Computer    |\n'
-         '         |  2. Computer vs. Computer |\n'
-         '         |     3. How to play        |\n'
-         '         |___________________________|\n\n' +
-         PLEASE_PROMPT)
-
-GAME_OPTIONS = ['1', '2', '3', 'q', 'quit', 'exit', 'e']
-
-SORRY = ('Sorry? \x1b[33m' + 'Y' + '\x1b[0m'+'es or ' + '\x1b[33m' +
-         'N'+'\x1b[0m' + 'o')
-
-HOW_TO_PLAY = ('=======================HOW TO PLAY=======================\n'
-               'One player chooses paper, scissors or rock; ' +
-               'the other player, too.\n\n'
-               'Paper beats rock,\n'
-               'scissors beat paper\n,'
-               'and rock beats scissors.\n\n'
-               'If both choices are of the same kind (eg. "rock vs. rock"),' +
-               ' it is a tie.\n\n'
-               'After three rounds, the  player who has beaten the opponent' +
-               ' the most is the winner.\n'
-               '-----------\n'
-               'If you want to play against the computer, type 1.\n'
-               'If you want to see a match, type 2.\n'
-               '-----------\n'
-               '                       HINTS\n'
-               'There are five kinds of strategies your opponent may use:\n'
-               'a. playing randomly;\n'
-               'b. imitating your last move' +
-               ' (eg. if you chose "paper" at round 1,' +
-               ' he will play "paper" at round 2.);\n'
-               'c. using all of the three options once;\n'
-               'd. always choosing "rock";'
-               'e. thinking that you are going to repeat your last move' +
-               ' (eg. if you chose "paper" at round 1, ' +
-               ' he will play "scissors" at round 2.)\n'
-               'But sometimes he has just bad luck and loses all rounds.\n'
-               'Discover the strategy your opponent is using to raise' +
-               ' your chances of winning!\n'
-               'By the way, the same player may use different strategies' +
-               ' at different matches.\n'
-               'And no, Bart does not always play "rock".\n'
-               '==============='
-               'CREDITS: Developed by Hugo Tiburtino. ASCII art by VK')
-
+MOVES = ['rock', 'paper', 'scissors']
 
 def alternative_choices(option):
         if option == 'r':
@@ -140,7 +52,7 @@ class Player:
 class HumanPlayer(Player):
     def move(self):
         checkspelling = 'Move not valid. Please check the spelling.'
-        myMove = valid_option(checkspelling, moves)
+        myMove = valid_option(checkspelling, MOVES)
         return myMove
 
     def tactic(self):
@@ -149,7 +61,7 @@ class HumanPlayer(Player):
 
 class RandomPlayer(Player):
     def move(self):
-        return random.choice(moves)
+        return random.choice(MOVES)
 
     def tactic(self):
         return 'playing randomly'
@@ -161,7 +73,7 @@ class ReflectPlayer(Player):
 
     def move(self):
         if self.nextmove == "I don't Know":
-            return random.choice(moves)
+            return random.choice(MOVES)
         else:
             return self.nextmove
 
@@ -178,7 +90,7 @@ class InteligentReflectPlayer(Player):
 
     def move(self):
         if self.nextmove == "I don't Know":
-            return random.choice(moves)
+            return random.choice(MOVES)
         else:
             return self.nextmove
 
@@ -196,7 +108,7 @@ class InteligentReflectPlayer(Player):
 
 class BadLuckPlayer(Player):
     def __init__(self):
-        self.nextmove = random.choice(moves)
+        self.nextmove = random.choice(MOVES)
 
     def move(self):
         return self.nextmove
@@ -220,13 +132,13 @@ class CyclePlayer(Player):
     def move(self):
         if self.index > 2:
             self.index = 0
-        return moves[self.index]
+        return MOVES[self.index]
 
     def learn(self, my_move, their_move):
         self.index += 1
 
     def tactic(self):
-        return 'not repeating any of his own moves'
+        return 'not repeating any of his own MOVES'
 
 
 class RockPlayer(Player):
@@ -258,7 +170,7 @@ class Game:
         self.chooseGame()
 
     def chooseGame(self):
-        self.game_option = valid_option(PLEASE_PROMPT, GAME_OPTIONS)
+        self.game_option = valid_option(MENU_OPTIONS_PROMPT , MENU_OPTIONS)
 
         if self.game_option == '1':
             self.p1 = HumanPlayer()
@@ -290,11 +202,11 @@ class Game:
             self.myName = 'Player 1'
 
     def getComputerName(self):
-        if self.opon == len(oponents_names) - 1:
+        if self.opon == len(OPPONENT_NAMES) - 1:
             self.opon = 0
         else:
             self.opon += 1
-        self.ComputerName = oponents_names[self.opon]
+        self.ComputerName = OPPONENT_NAMES[self.opon]
 
     def play_game_hum(self):
         print("\n     Game start!\n")
@@ -311,10 +223,10 @@ class Game:
         self.WhoWon()
         print("\n    Game over!\n")
         print('Do you want to play again? (yes or no)')
-        play_again = valid_option(SORRY, 'yes no')
+        play_again = valid_option(SORRY_YES_NO, 'yes no')
         if play_again == 'yes':
             print('Do you want to know your opponent\'s strategy? (yes or no)')
-            reveal_mode = valid_option(SORRY, 'yes no')
+            reveal_mode = valid_option(SORRY_YES_NO, 'yes no')
             if reveal_mode == 'yes':
                 self.revealStrategyMode = True
             else:
@@ -327,8 +239,8 @@ class Game:
 
     def play_game_com(self):
         print("\n   Game start!")
-        self.myName = random.choice(oponents_names)
-        self.ComputerName = random.choice(oponents_names)
+        self.myName = random.choice(OPPONENT_NAMES)
+        self.ComputerName = random.choice(OPPONENT_NAMES)
         if self.myName == self.ComputerName:
             self.ComputerName = self.myName + ' Bad Twin'
         for round in range(3):
@@ -342,7 +254,7 @@ class Game:
         self.WhoWon()
         print("\n   Game over!\n\n" +
               'Do you want to watch another match? (yes or no)')
-        otherMatch = valid_option(SORRY, 'yes no')
+        otherMatch = valid_option(SORRY_YES_NO, 'yes no')
         if otherMatch == 'yes':
             self.p1 = random.choice(self.oponents)
             self.p2 = random.choice(self.oponents)
@@ -356,18 +268,18 @@ class Game:
         move2 = self.p2.move()
         image1 = ''
         image2 = ''
-        if move1 == moves[0]:
-            image1 = graphics[0]
-        elif move1 == moves[1]:
-            image1 = graphics[1]
-        elif move1 == moves[2]:
-            image1 = graphics[2]
-        if move2 == moves[0]:
-            image2 = graphics[0]
-        elif move2 == moves[1]:
-            image2 = graphics[1]
-        elif move2 == moves[2]:
-            image2 = graphics[2]
+        if move1 == MOVES[0]:
+            image1 = HANDS[0]
+        elif move1 == MOVES[1]:
+            image1 = HANDS[1]
+        elif move1 == MOVES[2]:
+            image1 = HANDS[2]
+        if move2 == MOVES[0]:
+            image2 = HANDS[0]
+        elif move2 == MOVES[1]:
+            image2 = HANDS[1]
+        elif move2 == MOVES[2]:
+            image2 = HANDS[2]
         strategy1 = self.p1.tactic()
         strategy2 = self.p2.tactic()
         if strategy1 == '' and self.revealStrategyMode is False:
