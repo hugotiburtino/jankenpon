@@ -6,12 +6,12 @@ import random
 import time
 import sys
 from jankenpon.resources import (HANDS, HOW_TO_PLAY, MENU_IMAGE, MENU_OPTIONS, 
-                       MENU_OPTIONS_PROMPT, SORRY_YES_NO, INTRO,
-                       OPPONENT_NAMES, HOW_TO_PLAY)
+                                 MENU_OPTIONS_PROMPT, SORRY_YES_NO, INTRO,
+                                 OPPONENT_NAMES, HOW_TO_PLAY)
 from jankenpon.player_classes import (Player, HumanPlayer,
-                            RockPlayer, CyclePlayer,
-                            BadLuckPlayer, InteligentReflectPlayer,
-                            ReflectPlayer, RandomPlayer, MOVES)
+                                      RockPlayer, CyclePlayer,
+                                      BadLuckPlayer, InteligentReflectPlayer,
+                                      ReflectPlayer, RandomPlayer, MOVES)
 from jankenpon.tools import hinder_invalid_input, beats
 
 
