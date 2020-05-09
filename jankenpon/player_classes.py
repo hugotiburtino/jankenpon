@@ -1,5 +1,5 @@
 import random
-from tools import hinder_invalid_input
+from jankenpon.tools import hinder_invalid_input
 
 MOVES = ['rock', 'paper', 'scissors']
 
