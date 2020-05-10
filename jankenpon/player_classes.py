@@ -27,7 +27,7 @@ class Player:
         pass
 
     def tactic(self):
-        pass
+        return ''
 
 
 class HumanPlayer(Player):
@@ -42,10 +42,6 @@ class HumanPlayer(Player):
         checkspelling = 'Move not valid. Please check the spelling.'
         myMove = hinder_invalid_input(checkspelling, MOVES)
         return myMove
-
-    # TODO: get rid of this method here
-    def tactic(self):
-        return ''
 
 
 class RandomPlayer(Player):
