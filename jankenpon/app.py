@@ -42,18 +42,24 @@ class Game:
             self.p2 = random.choice(OPPONENTS)
             self.game_comp_vs_comp()
 
-    def play_game_hum(self):
+    def play_game(self):
         print("\n     Game start!\n")
+        # TODO: reintroduce this feature
+        # if self.p1.get_name() == self.p2.get_name():
+        #      self.p2.name = self.p1.get_name() + ' Bad Twin'
         for round in range(3):
             print('\x1b[6;37;41m' + f" X---- ROUND {round+1} ----X "
                   + '\x1b[0m')
-            print('\x1b[33m'+'r'+'\x1b[0m'+'ock, ' + '\x1b[33m' +
+            if type(self.p1) == HumanPlayer:
+                print('\x1b[33m'+'r'+'\x1b[0m'+'ock, ' + '\x1b[33m' +
                   'p'+'\x1b[0m' + 'aper or '+'\x1b[33m' +
                   's'+'\x1b[0m' + 'cissors?')
+            else:
+                time.sleep(4)
             self.play_round()
 
     def game_hum_vs_comp(self):
-        self.play_game_hum()
+        self.play_game()
         self.get_who_won()
         print("\n    Game over!\n")
         print('Do you want to play again? (yes or no)')
@@ -70,19 +76,8 @@ class Game:
         else:
             self.__init__(None, None)
 
-    def play_game_com(self):
-        print("\n   Game start!")
-        # TODO: reintroduce this feature
-        # if self.p1.get_name() == self.p2.get_name():
-        #      self.p2.name = self.p1.get_name() + ' Bad Twin'
-        for round in range(3):
-            print('\n\x1b[6;37;41m' + f" X---- ROUND {round+1} ----X "
-                  + '\x1b[0m\n')
-            time.sleep(4)
-            self.play_round()
-
     def game_comp_vs_comp(self):
-        self.play_game_com()
+        self.play_game()
         self.get_who_won()
         print("\n   Game over!\n\n" +
               'Do you want to watch another match? (yes or no)')
