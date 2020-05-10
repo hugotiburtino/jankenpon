@@ -13,61 +13,34 @@ from jankenpon.player_classes import (Player, HumanPlayer,
                                       BadLuckPlayer, InteligentReflectPlayer,
                                       ReflectPlayer, RandomPlayer, MOVES)
 from jankenpon.tools import hinder_invalid_input, beats
+from jankenpon.menu import Menu
 
 OPPONENTS = [BadLuckPlayer(), InteligentReflectPlayer(),
              ReflectPlayer(), CyclePlayer(),
              RandomPlayer(), RockPlayer()]
 
 class Game:
+    
+    menu = Menu()
+
     def __init__(self, p1, p2):
-        print(INTRO)
         self.p1 = p1
         self.p2 = p2
         self.score_p1 = 0
         self.score_p2 = 0
-        self.opponent_name_index = 0
         self.reveal_strategy_mode = False
-        self.chooseGame()
+        self.menu.show_intro()
+        self.set_game(self.menu.choose_game())
 
-    def chooseGame(self):
-        self.game_option = hinder_invalid_input(MENU_OPTIONS_PROMPT , 
-                                                MENU_OPTIONS)
-
-        if self.game_option == '1':
+    def set_game(self, game_type):
+        if game_type == 'human_vs_computer':
             self.p1 = HumanPlayer()
             self.p2 = random.choice(OPPONENTS)
-            self.get_player_name()
-            self.get_computer_name()
             self.game_hum_vs_comp()
-
-        elif self.game_option == '2':
+        else:
             self.p1 = random.choice(OPPONENTS)
             self.p2 = random.choice(OPPONENTS)
             self.game_comp_vs_comp()
-
-        elif self.game_option == '3':
-            print(HOW_TO_PLAY)
-            self.chooseGame()
-
-        elif self.game_option in ['q', 'quit', 'exit', 'e']:
-            print('Bye bye!')
-            sys.exit()
-
-        else:
-            self.chooseGame()
-
-    def get_player_name(self):
-        print('What is your name?')
-        self.p1.set_name(input().strip())
-        if self.p1.name == '':
-            self.p1.set_name('Player 1')
-
-    def get_computer_name(self):
-        if self.opponent_name_index == len(OPPONENT_NAMES) - 1:
-            self.opponent_name_index = 0
-        else:
-            self.opponent_name_index += 1
-        self.p2.set_name(OPPONENT_NAMES[self.opponent_name_index])
 
     def play_game_hum(self):
         print("\n     Game start!\n")
@@ -92,18 +65,16 @@ class Game:
                 self.reveal_strategy_mode = True
             else:
                 self.reveal_strategy_mode = False
-            self.get_computer_name()
             self.p2 = random.choice(OPPONENTS)
             self.game_hum_vs_comp()
         else:
-            self.__init__(Player(), Player())
+            self.__init__(None, None)
 
     def play_game_com(self):
         print("\n   Game start!")
-        self.p1.set_name(random.choice(OPPONENT_NAMES))
-        self.p2.set_name(random.choice(OPPONENT_NAMES))
-        if self.p1.get_name() == self.p2.get_name():
-            self.p2.set_name(self.p1.get_name() + ' Bad Twin')
+        # TODO: reintroduce this feature
+        # if self.p1.get_name() == self.p2.get_name():
+        #      self.p2.name = self.p1.get_name() + ' Bad Twin'
         for round in range(3):
             print('\n\x1b[6;37;41m' + f" X---- ROUND {round+1} ----X "
                   + '\x1b[0m\n')
@@ -121,7 +92,7 @@ class Game:
             self.p2 = random.choice(OPPONENTS)
             self.game_comp_vs_comp()
         else:
-            self.__init__(Player(), Player())
+            self.__init__(None, None)
 
     def play_round(self):
         move1 = self.p1.move()

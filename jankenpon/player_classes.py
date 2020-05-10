@@ -1,5 +1,5 @@
 import random
-from jankenpon.tools import hinder_invalid_input
+from jankenpon.tools import hinder_invalid_input, get_computer_name
 
 MOVES = ['rock', 'paper', 'scissors']
 
@@ -7,8 +7,12 @@ class Player:
 
     name = ''
 
-    def set_name(self, name):
-        self.name = name
+    def __init__(self):
+        self.set_name()
+
+    # TODO: make every new instance with its own name
+    def set_name(self):
+        self.name = get_computer_name()
 
     def get_name(self):
         return self.name
@@ -27,11 +31,19 @@ class Player:
 
 
 class HumanPlayer(Player):
+
+    def set_name(self):
+        print('What is your name?')
+        self.name = input().strip()
+        if self.name == '':
+            self.name = 'Player 1'
+
     def move(self):
         checkspelling = 'Move not valid. Please check the spelling.'
         myMove = hinder_invalid_input(checkspelling, MOVES)
         return myMove
 
+    # TODO: get rid of this method here
     def tactic(self):
         return ''
 
@@ -46,6 +58,7 @@ class RandomPlayer(Player):
 
 class ReflectPlayer(Player):
     def __init__(self):
+        super().__init__()
         self.nextmove = "I don't Know"
 
     def move(self):
@@ -63,6 +76,7 @@ class ReflectPlayer(Player):
 
 class InteligentReflectPlayer(Player):
     def __init__(self):
+        super().__init__()
         self.nextmove = "I don't Know"
 
     def move(self):
@@ -85,6 +99,7 @@ class InteligentReflectPlayer(Player):
 
 class BadLuckPlayer(Player):
     def __init__(self):
+        super().__init__()
         self.nextmove = random.choice(MOVES)
 
     def move(self):
@@ -104,6 +119,7 @@ class BadLuckPlayer(Player):
 
 class CyclePlayer(Player):
     def __init__(self):
+        super().__init__()
         self.index = random.randint(0, 2)
 
     def move(self):

@@ -1,3 +1,13 @@
+from jankenpon.resources import OPPONENT_NAMES
+
+opponent_name_index = 0
+
+def get_computer_name():
+    global opponent_name_index
+    opponent_name_index += 1
+    print(opponent_name_index)
+    return OPPONENT_NAMES[opponent_name_index % len(OPPONENT_NAMES)]
+
 def interpret_abbreviation(user_input):
     if user_input == 'r':
         user_input = 'rock'
@@ -16,7 +26,6 @@ def interpret_abbreviation(user_input):
     if user_input == 'e':
         user_input = 'quit'
     return user_input
-
 
 def hinder_invalid_input(prompt_message, possibilities):
     while True:
