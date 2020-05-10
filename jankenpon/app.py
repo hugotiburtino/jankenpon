@@ -4,10 +4,7 @@ and reports both Player's scores each round."""
 
 import random
 import time
-import sys
-from jankenpon.resources import (HANDS, HOW_TO_PLAY, MENU_IMAGE, MENU_OPTIONS, 
-                                 MENU_OPTIONS_PROMPT, SORRY_YES_NO, INTRO,
-                                 OPPONENT_NAMES, HOW_TO_PLAY)
+from jankenpon.resources import (HANDS, SORRY_YES_NO)
 from jankenpon.player_classes import (Player, HumanPlayer,
                                       RockPlayer, CyclePlayer,
                                       BadLuckPlayer, InteligentReflectPlayer,
