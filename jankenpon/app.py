@@ -12,9 +12,9 @@ from jankenpon.player_classes import (Player, HumanPlayer,
 from jankenpon.tools import hinder_invalid_input, beats
 from jankenpon.menu import Menu
 
-OPPONENTS = [BadLuckPlayer(), InteligentReflectPlayer(),
-             ReflectPlayer(), CyclePlayer(),
-             RandomPlayer(), RockPlayer()]
+OPPONENTS = [BadLuckPlayer, InteligentReflectPlayer,
+             ReflectPlayer, CyclePlayer,
+             RandomPlayer, RockPlayer]
 
 class Game:
     
@@ -33,25 +33,9 @@ class Game:
         if game_type == 'human_vs_computer':
             self.p1 = HumanPlayer()
         else:
-            self.p1 = random.choice(OPPONENTS)
-        self.p2 = random.choice(OPPONENTS)
+            self.p1 = random.choice(OPPONENTS)()
+        self.p2 = random.choice(OPPONENTS)()
         self.run_game()
-
-    def play_game(self):
-        print("\n     Game start!\n")
-        # TODO: reintroduce this feature
-        # if self.p1.get_name() == self.p2.get_name():
-        #      self.p2.name = self.p1.get_name() + ' Bad Twin'
-        for round in range(3):
-            print('\x1b[6;37;41m' + f" X---- ROUND {round+1} ----X "
-                  + '\x1b[0m')
-            if type(self.p1) == HumanPlayer:
-                print('\x1b[33m'+'r'+'\x1b[0m'+'ock, ' + '\x1b[33m' +
-                  'p'+'\x1b[0m' + 'aper or '+'\x1b[33m' +
-                  's'+'\x1b[0m' + 'cissors?')
-            else:
-                time.sleep(4)
-            self.play_round()
 
     def run_game(self):
         self.play_game()
@@ -67,7 +51,7 @@ class Game:
                     self.reveal_strategy_mode = True
                 else:
                     self.reveal_strategy_mode = False
-                self.p2 = random.choice(OPPONENTS)
+                self.p2 = random.choice(OPPONENTS)()
                 self.run_game()
             else:
                 self.__init__(None, None)
@@ -75,11 +59,26 @@ class Game:
             print('Do you want to watch another match? (yes or no)')
             otherMatch = hinder_invalid_input(SORRY_YES_NO, 'yes no')
             if otherMatch == 'yes':
-                self.p1 = random.choice(OPPONENTS)
-                self.p2 = random.choice(OPPONENTS)
+                self.p1 = random.choice(OPPONENTS)()
+                self.p2 = random.choice(OPPONENTS)()
                 self.run_game()
             else:
                 self.__init__(None, None)
+
+    def play_game(self):
+        print("\n     Game start!\n")
+        if self.p1.get_name() == self.p2.get_name():
+             self.p2.name = self.p1.get_name() + ' Bad Twin'
+        for round in range(3):
+            print('\x1b[6;37;41m' + f" X---- ROUND {round+1} ----X "
+                  + '\x1b[0m')
+            if type(self.p1) == HumanPlayer:
+                print('\x1b[33m'+'r'+'\x1b[0m'+'ock, ' + '\x1b[33m' +
+                  'p'+'\x1b[0m' + 'aper or '+'\x1b[33m' +
+                  's'+'\x1b[0m' + 'cissors?')
+            else:
+                time.sleep(4)
+            self.play_round()
 
     def play_round(self):
         move1 = self.p1.move()

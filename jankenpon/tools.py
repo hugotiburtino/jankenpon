@@ -5,7 +5,6 @@ opponent_name_index = 0
 def get_computer_name():
     global opponent_name_index
     opponent_name_index += 1
-    print(opponent_name_index)
     return OPPONENT_NAMES[opponent_name_index % len(OPPONENT_NAMES)]
 
 def interpret_abbreviation(user_input):

@@ -10,7 +10,6 @@ class Player:
     def __init__(self):
         self.set_name()
 
-    # TODO: make every new instance with its own name
     def set_name(self):
         self.name = get_computer_name()
 
