@@ -32,12 +32,10 @@ class Game:
     def set_game(self, game_type):
         if game_type == 'human_vs_computer':
             self.p1 = HumanPlayer()
-            self.p2 = random.choice(OPPONENTS)
-            self.game_hum_vs_comp()
         else:
             self.p1 = random.choice(OPPONENTS)
-            self.p2 = random.choice(OPPONENTS)
-            self.game_comp_vs_comp()
+        self.p2 = random.choice(OPPONENTS)
+        self.run_game()
 
     def play_game(self):
         print("\n     Game start!\n")
@@ -55,36 +53,33 @@ class Game:
                 time.sleep(4)
             self.play_round()
 
-    def game_hum_vs_comp(self):
+    def run_game(self):
         self.play_game()
         self.get_who_won()
         print("\n    Game over!\n")
-        print('Do you want to play again? (yes or no)')
-        play_again = hinder_invalid_input(SORRY_YES_NO, 'yes no')
-        if play_again == 'yes':
-            print('Do you want to know your opponent\'s strategy? (yes or no)')
-            reveal_mode = hinder_invalid_input(SORRY_YES_NO, 'yes no')
-            if reveal_mode == 'yes':
-                self.reveal_strategy_mode = True
+        if type(self.p1) == HumanPlayer:
+            print('Do you want to play again? (yes or no)')
+            play_again = hinder_invalid_input(SORRY_YES_NO, 'yes no')
+            if play_again == 'yes':
+                print('Do you want to know your opponent\'s strategy? (yes or no)')
+                reveal_mode = hinder_invalid_input(SORRY_YES_NO, 'yes no')
+                if reveal_mode == 'yes':
+                    self.reveal_strategy_mode = True
+                else:
+                    self.reveal_strategy_mode = False
+                self.p2 = random.choice(OPPONENTS)
+                self.run_game()
             else:
-                self.reveal_strategy_mode = False
-            self.p2 = random.choice(OPPONENTS)
-            self.game_hum_vs_comp()
+                self.__init__(None, None)
         else:
-            self.__init__(None, None)
-
-    def game_comp_vs_comp(self):
-        self.play_game()
-        self.get_who_won()
-        print("\n   Game over!\n\n" +
-              'Do you want to watch another match? (yes or no)')
-        otherMatch = hinder_invalid_input(SORRY_YES_NO, 'yes no')
-        if otherMatch == 'yes':
-            self.p1 = random.choice(OPPONENTS)
-            self.p2 = random.choice(OPPONENTS)
-            self.game_comp_vs_comp()
-        else:
-            self.__init__(None, None)
+            print('Do you want to watch another match? (yes or no)')
+            otherMatch = hinder_invalid_input(SORRY_YES_NO, 'yes no')
+            if otherMatch == 'yes':
+                self.p1 = random.choice(OPPONENTS)
+                self.p2 = random.choice(OPPONENTS)
+                self.run_game()
+            else:
+                self.__init__(None, None)
 
     def play_round(self):
         move1 = self.p1.move()
