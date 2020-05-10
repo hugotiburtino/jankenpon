@@ -4,10 +4,9 @@
 
 ---
 
-Object-oriented written in Python
+Object-oriented programmed in Python 3
 
 ## Table of Contents
-
 * [How to run](#how_to_run)
 * [About](#about)
 
@@ -19,6 +18,4 @@ Docker:
 
 
 ## About
-This project was part of an introductory programming course at Udacity.  
-
-Developed by Hugo Tiburtino. ASCII art by VK
+This project was part of an introductory programming course at Udacity. A very short starter code was provided with some instructions and hints. All functionalities were developed by developed by **Hugo Tiburtino**. ASCII art by VK
