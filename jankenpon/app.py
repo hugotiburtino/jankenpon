@@ -1,6 +1,9 @@
-#!/usr/bin/env python3
-"""This program plays a game of Rock, Paper, Scissors between two Players,
-and reports both Player's scores each round."""
+# app.py
+
+"""
+This program runs a game of 'Rock Paper Scissors' between two players,
+and reports both player's scores each round as well as the possible winner
+"""
 
 import random
 import time
@@ -17,10 +20,24 @@ OPPONENTS = [BadLuckPlayer, InteligentReflectPlayer,
              RandomPlayer, RockPlayer]
 
 class Game:
-    
+    """
+    Class that manages the game
+    ...
+    Attributes
+    ----------
+    menu : Menu
+        an object that manages the menu
+
+    Methods
+    -------
+???
+    """
+
     menu = Menu()
 
     def __init__(self, p1, p2):
+        """magic function that starts the game setting players and values 
+        to default"""
         self.p1 = p1
         self.p2 = p2
         self.score_p1 = 0
@@ -30,6 +47,19 @@ class Game:
         self.set_game(self.menu.choose_game())
 
     def set_game(self, game_type):
+        """
+        Sets the the first play as human or computar, randomizes the second
+        player and runs the game
+
+        ...
+
+        Parameters
+        ----------
+        game_type : str
+            The type of game. 
+            Options: human vs computer or computer vs computer
+        """
+
         if game_type == 'human_vs_computer':
             self.p1 = HumanPlayer()
         else:
@@ -40,6 +70,9 @@ class Game:
     def run_game(self):
         self.play_game()
         self.get_who_won()
+        self.show_gameover()
+    
+    def show_gameover(self):
         print("\n    Game over!\n")
         if type(self.p1) == HumanPlayer:
             print('Do you want to play again? (yes or no)')
