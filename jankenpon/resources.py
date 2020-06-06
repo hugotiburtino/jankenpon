@@ -1,4 +1,8 @@
 # resources.py
+"""
+Module with resources to enrich the game
+"""
+
 
 HANDS = ['''
       .-.
