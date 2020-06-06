@@ -68,11 +68,20 @@ class Game:
         self.run_game()
 
     def run_game(self):
+        """
+        Calls the stages of the game: play, get winner and display the game
+        over panel
+        """
         self.play_game()
         self.get_who_won()
         self.show_gameover()
     
     def show_gameover(self):
+        """
+        Shows the "game over" message and asks if the user wants to play again
+        (or see another game, if it was computer vs computer) and if she/he 
+        wants to know to strategy of the opponent next time.
+        """
         print("\n    Game over!\n")
         if type(self.p1) == HumanPlayer:
             print('Do you want to play again? (yes or no)')
@@ -99,6 +108,9 @@ class Game:
                 self.__init__(None, None)
 
     def play_game(self):
+        """
+        Shows the name and round number and calls the play round function
+        """
         print("\n     Game start!\n")
         if self.p1.get_name() == self.p2.get_name():
              self.p2.name = self.p1.get_name() + ' Bad Twin'
@@ -114,6 +126,11 @@ class Game:
             self.play_round()
 
     def play_round(self):
+        """
+        Core of the game. Takes the moves of the players, apply the rule to 
+        get the score, and display the ASCII arts as well as the names and 
+        score. At the end, make the computer player(s) learn from this round.
+        """
         move1 = self.p1.move()
         self.p2.bad_luck(move1)
         move2 = self.p2.move()
@@ -162,6 +179,10 @@ class Game:
         self.p2.learn(move2, move1)
 
     def get_who_won(self):
+        """
+        Gets the winner from the score and displays him/her. 
+        It also reset the score.
+        """
         if self.score_p1 > self.score_p2:
             print('\n\x1b[31m' + f'{self.p1.get_name()} has won!' + '\x1b[0m')
         if self.score_p1 < self.score_p2:
