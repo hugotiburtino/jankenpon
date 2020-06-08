@@ -28,9 +28,6 @@ class Game:
     menu : Menu
         an object that manages the menu
 
-    Methods
-    -------
-???
     """
 
     menu = Menu()
