@@ -11,7 +11,7 @@ Object-oriented programmed in Python 3
 * [About](#about)
 
 ## How to run
-Standalone: `python3 main.py`  
+Stand-alone: `python3 main.py`  
 Docker:
 1. `docker build -t jankenpon`
 2. `docker run -it jankenpon`
@@ -19,3 +19,6 @@ Docker:
 
 ## About
 This project was part of an introductory programming course at Udacity. A very short starter code was provided with some instructions and hints. All functionalities were developed by developed by **Hugo Tiburtino**. ASCII art by VK
+
+## License
+BSD 3
