@@ -173,15 +173,15 @@ class InteligentReflectPlayer(Player):
         Gets its name and initializes the nextmove attribute.
         """
         super().__init__()
-        self.nextmove = "I don't Know"
+        self.nextmove = "I don't know"
 
     def move(self):
         """
-        Returns the move of the player. If it is on the round 1, that means,
-        it cannot imitate the last move of its opponent, than it makes a 
-        random move.
+        Returns the move of the player. 
+        If it is on the round 1, that means, it cannot imitate the last 
+        move of its opponent, then it makes a random move.
         """
-        if self.nextmove == "I don't Know":
+        if self.nextmove == "I don't know":
             return random.choice(MOVES)
         else:
             return self.nextmove

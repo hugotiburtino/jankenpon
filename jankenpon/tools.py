@@ -7,6 +7,7 @@ from jankenpon.resources import OPPONENT_NAMES
 
 opponent_name_index = 0
 
+
 def get_computer_name():
     """
     Gets computer player's name and make it rotate, so that the computer
@@ -22,6 +23,7 @@ def get_computer_name():
     opponent_name_index += 1
     return OPPONENT_NAMES[opponent_name_index % len(OPPONENT_NAMES)]
 
+
 def interpret_abbreviation(user_input):
     """
     Get shortcut and returns the real value
@@ -30,23 +32,24 @@ def interpret_abbreviation(user_input):
     str
        The option of the user as a complete string
     """
-    if user_input == 'r':
-        user_input = 'rock'
-    if user_input == 's':
-        user_input = 'scissors'
-    if user_input == 'p':
-        user_input = 'paper'
-    if user_input == 'y':
-        user_input = 'yes'
-    if user_input == 'n':
-        user_input = 'no'
-    if user_input == 'q':
-        user_input = 'quit'
-    if user_input == 'exit':
-        user_input = 'quit'
-    if user_input == 'e':
-        user_input = 'quit'
+    if user_input == "r":
+        user_input = "rock"
+    if user_input == "s":
+        user_input = "scissors"
+    if user_input == "p":
+        user_input = "paper"
+    if user_input == "y":
+        user_input = "yes"
+    if user_input == "n":
+        user_input = "no"
+    if user_input == "q":
+        user_input = "quit"
+    if user_input == "exit":
+        user_input = "quit"
+    if user_input == "e":
+        user_input = "quit"
     return user_input
+
 
 def hinder_invalid_input(prompt_message, possibilities):
     """
@@ -68,6 +71,7 @@ def hinder_invalid_input(prompt_message, possibilities):
         else:
             print(prompt_message)
 
+
 def beats(one, two):
     """
     Evaluates what moves beats what
@@ -77,6 +81,8 @@ def beats(one, two):
     bool
         true if the move one beats the move two
     """
-    return ((one == 'rock' and two == 'scissors') or
-            (one == 'scissors' and two == 'paper') or
-            (one == 'paper' and two == 'rock'))
+    return (
+        (one == "rock" and two == "scissors")
+        or (one == "scissors" and two == "paper")
+        or (one == "paper" and two == "rock")
+    )
