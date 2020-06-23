@@ -127,20 +127,8 @@ class Game:
         move1 = self.p1.move()
         self.p2.bad_luck(move1)
         move2 = self.p2.move()
-        image1 = ""
-        image2 = ""
-        if move1 == MOVES[0]:
-            image1 = HANDS[0]
-        elif move1 == MOVES[1]:
-            image1 = HANDS[1]
-        elif move1 == MOVES[2]:
-            image1 = HANDS[2]
-        if move2 == MOVES[0]:
-            image2 = HANDS[0]
-        elif move2 == MOVES[1]:
-            image2 = HANDS[1]
-        elif move2 == MOVES[2]:
-            image2 = HANDS[2]
+        image1 = HANDS[MOVES.index(move1)]
+        image2 = HANDS[MOVES.index(move2)]
         strategy1 = self.p1.tactic()
         strategy2 = self.p2.tactic()
         if strategy1 == "" and self.reveal_strategy_mode is False:
