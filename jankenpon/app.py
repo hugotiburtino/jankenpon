@@ -33,8 +33,10 @@ class Game:
     menu = Menu()
 
     def __init__(self, p1, p2):
-        """magic function that starts the game setting players and values 
-        to default"""
+        """
+        magic function that starts the game setting players and values 
+        to default
+        """
         self.p1 = p1
         self.p2 = p2
         self.score_p1 = 0
@@ -122,7 +124,7 @@ class Game:
                 time.sleep(4)
             self.play_round()
 
-    def play_round(self):
+    def play_round(self): # TODO: refactor this method, too long
         """
         Core of the game. Takes the moves of the players, apply the rule to 
         get the score, and display the ASCII arts as well as the names and 
