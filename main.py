@@ -26,7 +26,13 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '''
 
+import sys
+
 from jankenpon.app import Game
 
 if __name__ == '__main__':
+  try:
     Game(None, None).intro()
+  except KeyboardInterrupt:
+    print('\n Bye bye')
+    sys.exit()
