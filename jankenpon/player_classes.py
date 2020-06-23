@@ -1,7 +1,8 @@
 import random
 from jankenpon.tools import hinder_invalid_input, get_computer_name
 
-MOVES = ['rock', 'paper', 'scissors']
+MOVES = ["rock", "paper", "scissors"]
+
 
 class Player:
     """
@@ -16,7 +17,7 @@ class Player:
     name : str
     """
 
-    name = ''
+    name = ""
 
     def __init__(self):
         """
@@ -59,7 +60,7 @@ class Player:
         """
         Tells the tactic of the player
         """
-        return ''
+        return ""
 
 
 class HumanPlayer(Player):
@@ -67,14 +68,17 @@ class HumanPlayer(Player):
     Class of the Human Player
     """
 
+    def __init__(self):
+        pass
+
     def set_name(self):
         """
         Ask for the user name and stores it
         """
-        print('What is your name?')
+        print("What is your name?")
         self.name = input().strip()
-        if self.name == '':
-            self.name = 'Player 1'
+        if self.name == "":
+            self.name = "Player 1"
 
     def move(self):
         """
@@ -85,7 +89,7 @@ class HumanPlayer(Player):
         str
            The move of the user
         """
-        checkspelling = 'Move not valid. Please check the spelling.'
+        checkspelling = "Move not valid. Please check the spelling."
         move = hinder_invalid_input(checkspelling, MOVES)
         return move
 
@@ -94,6 +98,7 @@ class RandomPlayer(Player):
     """
     Class of the player that simply randomly plays
     """
+
     def move(self):
         """
         Returns a random choice from the list of moves
@@ -101,7 +106,7 @@ class RandomPlayer(Player):
         return random.choice(MOVES)
 
     def tactic(self):
-        return 'playing randomly'
+        return "playing randomly"
 
 
 class ReflectPlayer(Player):
@@ -118,13 +123,13 @@ class ReflectPlayer(Player):
         The next move based on what this player learned from the 
         previous round
     """
+
     def __init__(self):
         """
         Gets its name and initializes the nextmove attribute.
-
         """
         super().__init__()
-        self.nextmove = "I don't Know"
+        self.nextmove = "I don't know"
 
     def move(self):
         """
@@ -132,7 +137,7 @@ class ReflectPlayer(Player):
         it cannot imitate the last move of its opponent, than it makes a 
         random move.
         """
-        if self.nextmove == "I don't Know":
+        if self.nextmove == "I don't know":
             return random.choice(MOVES)
         else:
             return self.nextmove
@@ -145,7 +150,7 @@ class ReflectPlayer(Player):
         self.nextmove = their_move
 
     def tactic(self):
-        return 'imitating opponent\'s last move'
+        return "imitating opponent's last move"
 
 
 class InteligentReflectPlayer(Player):
@@ -162,6 +167,7 @@ class InteligentReflectPlayer(Player):
         The next move based on what this player learned from the 
         previous round
     """
+
     def __init__(self):
         """
         Gets its name and initializes the nextmove attribute.
@@ -185,15 +191,15 @@ class InteligentReflectPlayer(Player):
         Sets nextmove attribute to beat what the opponent played in the 
         current round
         """
-        if their_move == 'rock':
-            self.nextmove = 'paper'
-        elif their_move == 'scissors':
-            self.nextmove = 'rock'
-        elif their_move == 'paper':
-            self.nextmove = 'scissors'
+        if their_move == "rock":
+            self.nextmove = "paper"
+        elif their_move == "scissors":
+            self.nextmove = "rock"
+        elif their_move == "paper":
+            self.nextmove = "scissors"
 
     def tactic(self):
-        return 'thinking that the opponent will repeat their last move'
+        return "thinking that the opponent will repeat their last move"
 
 
 class BadLuckPlayer(Player):
@@ -209,6 +215,7 @@ class BadLuckPlayer(Player):
         The next move based on what this player learned from the 
         previous round
     """
+
     def __init__(self):
         """
         Gets its name and initializes the nextmove attribute.
@@ -227,20 +234,20 @@ class BadLuckPlayer(Player):
         Simply chooses what is going to loose, according to the opponent's
         current move
         """
-        if their_move == 'paper':
-            self.nextmove = 'rock'
-        elif their_move == 'rock':
-            self.nextmove = 'scissors'
-        elif their_move == 'scissors':
-            self.nextmove = 'paper'
+        if their_move == "paper":
+            self.nextmove = "rock"
+        elif their_move == "rock":
+            self.nextmove = "scissors"
+        elif their_move == "scissors":
+            self.nextmove = "paper"
 
     def tactic(self):
-        return 'having bad luck'
+        return "having bad luck"
 
 
 class CyclePlayer(Player):
     """
-    Class of the Circle Player
+    Class of the Cycle Player
 
     It just rotates the moves. For example, 1st round rock, 2nd round scissors,
     and 3rd paper.
@@ -250,6 +257,7 @@ class CyclePlayer(Player):
     index : int
         The index in the moves list
     """
+
     def __init__(self):
         """
         Gets its name and initializes the index attribute.
@@ -272,18 +280,19 @@ class CyclePlayer(Player):
         self.index += 1
 
     def tactic(self):
-        return 'not repeating any of his own moves'
+        return "not repeating any of his own moves"
 
 
 class RockPlayer(Player):
     """
     Class of the Player that always plays rock
     """
+
     def move(self):
         """
         Return the move 'rock'
         """
-        return 'rock'
+        return "rock"
 
     def tactic(self):
         return 'always playing "rock"'

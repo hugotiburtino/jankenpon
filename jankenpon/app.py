@@ -54,7 +54,7 @@ class Game:
         self.score_p1 = 0
         self.score_p2 = 0
         self.reveal_strategy_mode = False
-    
+
     def intro(self):
         self.menu.show_intro()
         self.set_game(self.menu.choose_game())
@@ -76,6 +76,7 @@ class Game:
 
         if game_type == "human_vs_computer":
             self.p1 = HumanPlayer()
+            self.p1.set_name()
         else:
             self.p1 = random.choice(OPPONENTS)()
         self.p2 = random.choice(OPPONENTS)()
@@ -88,41 +89,6 @@ class Game:
         self.play_game()
         self.get_who_won()
         self.show_gameover()
-
-    def show_gameover(self):
-        """
-        Shows the "game over" message and, if the user was playing,
-        asks if the user wants to play again and if she/he
-        wants to know to strategy of the opponent next time.
-        If the game was computer vs computer, asks if the user wants
-        to see another game.
-        """
-        print("\n    Game over!\n")
-        if isinstance(self.p1, HumanPlayer):
-            print("Do you want to play again? (yes or no)")
-            play_again = hinder_invalid_input(SORRY_YES_NO, "yes no")
-            if play_again == "yes":
-                print("Do you want to know your opponent's strategy? (yes or no)")
-                reveal_mode = hinder_invalid_input(SORRY_YES_NO, "yes no")
-                if reveal_mode == "yes":
-                    self.reveal_strategy_mode = True
-                else:
-                    self.reveal_strategy_mode = False
-                self.p2 = random.choice(OPPONENTS)()
-                self.run_game()
-            else:
-                self.__init__(None, None)
-                self.intro()
-        else:
-            print("Do you want to watch another match? (yes or no)")
-            see_another_match = hinder_invalid_input(SORRY_YES_NO, "yes no")
-            if see_another_match == "yes":
-                self.p1 = random.choice(OPPONENTS)()
-                self.p2 = random.choice(OPPONENTS)()
-                self.run_game()
-            else:
-                self.__init__(None, None)
-                self.intro()
 
     def play_game(self):
         """
@@ -242,3 +208,38 @@ class Game:
             print("\n\x1b[1m" + "It is a tie!" + "\x1b[0m")
         self.score_p1 = 0
         self.score_p2 = 0
+
+    def show_gameover(self):
+        """
+        Shows the "game over" message and, if the user was playing,
+        asks if the user wants to play again and if she/he
+        wants to know to strategy of the opponent next time.
+        If the game was computer vs computer, asks if the user wants
+        to see another game.
+        """
+        print("\n    Game over!\n")
+        if isinstance(self.p1, HumanPlayer):
+            print("Do you want to play again? (yes or no)")
+            play_again = hinder_invalid_input(SORRY_YES_NO, "yes no")
+            if play_again == "yes":
+                print("Do you want to know your opponent's strategy? (yes or no)")
+                reveal_mode = hinder_invalid_input(SORRY_YES_NO, "yes no")
+                if reveal_mode == "yes":
+                    self.reveal_strategy_mode = True
+                else:
+                    self.reveal_strategy_mode = False
+                self.p2 = random.choice(OPPONENTS)()
+                self.run_game()
+            else:
+                self.__init__(None, None)
+                self.intro()
+        else:
+            print("Do you want to watch another match? (yes or no)")
+            see_another_match = hinder_invalid_input(SORRY_YES_NO, "yes no")
+            if see_another_match == "yes":
+                self.p1 = random.choice(OPPONENTS)()
+                self.p2 = random.choice(OPPONENTS)()
+                self.run_game()
+            else:
+                self.__init__(None, None)
+                self.intro()
