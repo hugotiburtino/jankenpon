@@ -133,16 +133,7 @@ class Game:
             self.score_p1 += 1
         elif beats(move2, move1) is True:
             self.score_p2 += 1
-        print(
-            "\n\x1b[31m"
-            + f"{self.p1.get_name()}"
-            + "\x1b[0m"
-            + f": {self.score_p1} point(s) X "
-            + "\x1b[34m"
-            + f"{self.p2.get_name()}"
-            + "\x1b[0m"
-            + f": {self.score_p2} point(s)"
-        )
+        self.displayer.show_score(self.p1, self.p2, self.score_p1, self.score_p2)
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
