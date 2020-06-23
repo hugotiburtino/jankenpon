@@ -19,7 +19,7 @@ from jankenpon.player_classes import (
     MOVES,
 )
 from jankenpon.tools import hinder_invalid_input, beats
-from jankenpon.menu import Menu
+from jankenpon.displayer import Displayer
 
 OPPONENTS = [
     BadLuckPlayer,
@@ -37,12 +37,12 @@ class Game:
     ...
     Attributes
     ----------
-    menu : Menu
-        an object that manages the menu
+    displayer : Displayer
+        object that manages what the user sees
 
     """
 
-    menu = Menu()
+    displayer = Displayer()
 
     def __init__(self, p1, p2):
         """
@@ -56,8 +56,8 @@ class Game:
         self.reveal_strategy_mode = False
 
     def intro(self):
-        self.menu.show_intro()
-        self.set_game(self.menu.choose_game())
+        self.displayer.show_intro()
+        self.set_game(self.displayer.choose_game())
         self.run_game()
 
     def set_game(self, game_type):
@@ -98,22 +98,9 @@ class Game:
         if self.p1.get_name() == self.p2.get_name():
             self.p2.name = self.p1.get_name() + " Bad Twin"
         for round in range(3):
-            print("\x1b[6;37;41m" + f" X---- ROUND {round+1} ----X " + "\x1b[0m")
+            self.displayer.show_round(round + 1)
             if isinstance(self.p1, HumanPlayer):
-                print(
-                    "\x1b[33m"
-                    + "r"
-                    + "\x1b[0m"
-                    + "ock, "
-                    + "\x1b[33m"
-                    + "p"
-                    + "\x1b[0m"
-                    + "aper or "
-                    + "\x1b[33m"
-                    + "s"
-                    + "\x1b[0m"
-                    + "cissors?"
-                )
+                self.displayer.show_options()
             else:
                 time.sleep(4)
             self.play_round()
@@ -131,45 +118,21 @@ class Game:
         image2 = HANDS[MOVES.index(move2)]
         strategy1 = self.p1.tactic()
         strategy2 = self.p2.tactic()
-        if strategy1 == "" and self.reveal_strategy_mode is False:
-            print(
-                "\x1b[31m"
-                + f"{self.p1.get_name()}"
-                + "\x1b[0m"
-                + f": {move1} {image1}"
-                + "\x1b[34m"
-                + f"{self.p2.get_name()}"
-                + "\x1b[0m"
-                + f": {move2} {image2}"
-            )
-        elif strategy1 == "" and self.reveal_strategy_mode is True:
-            print(
-                "\x1b[31m"
-                + f"{self.p1.get_name()}"
-                + "\x1b[0m"
-                + f" {strategy1}: {move1} {image1}"
-                + "\x1b[34m"
-                + f"{self.p2.get_name()}"
-                + "\x1b[0m"
-                + f" {strategy2}: {move2} {image2}"
-            )
-        else:
-            print(
-                "\x1b[31m"
-                + f"{self.p1.get_name()}"
-                + "\x1b[0m"
-                + f" {strategy1}: {move1} {image1}"
-                + "\x1b[34m"
-                + f"{self.p2.get_name()}"
-                + "\x1b[0m"
-                + f" {strategy2}: {move2} {image2}"
-            )
+        self.displayer.display_match(
+            self.reveal_strategy_mode,
+            self.p1,
+            self.p2,
+            move1,
+            move2,
+            image1,
+            image2,
+            strategy1,
+            strategy2,
+        )
         if beats(move1, move2) is True:
             self.score_p1 += 1
         elif beats(move2, move1) is True:
             self.score_p2 += 1
-        else:
-            pass
         print(
             "\n\x1b[31m"
             + f"{self.p1.get_name()}"
