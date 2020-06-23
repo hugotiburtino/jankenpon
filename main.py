@@ -29,4 +29,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from jankenpon.app import Game
 
 if __name__ == '__main__':
-    game = Game(None, None)
+    Game(None, None).intro()
