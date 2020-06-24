@@ -2,7 +2,13 @@
 
 import sys
 import random
-from jankenpon.resources import HOW_TO_PLAY, MENU_OPTIONS, MENU_OPTIONS_PROMPT, INTRO
+from jankenpon.resources import (
+    HOW_TO_PLAY,
+    MENU_OPTIONS,
+    MENU_OPTIONS_PROMPT,
+    INTRO,
+    SORRY_YES_NO,
+)
 from jankenpon.tools import hinder_invalid_input
 
 
@@ -130,3 +136,19 @@ class Displayer:
             print("\n\x1b[34m" + f"{p2.get_name()} has won!" + "\x1b[0m")
         else:
             print("\n\x1b[1m" + "It is a tie!" + "\x1b[0m")
+
+    def show_gameover_hum(self):
+        print("Do you want to play again? (yes or no)")
+        if hinder_invalid_input(SORRY_YES_NO, "yes no") == "yes":
+            print("Do you want to know your opponent's strategy? (yes or no)")
+            reveal_mode = hinder_invalid_input(SORRY_YES_NO, "yes no")
+            if reveal_mode == "yes":
+                return {"playagain": True, "reveal_mode": True}
+            else:
+                return {"playagain": True, "reveal_mode": False}
+        else:
+            return {"playagain": False}
+
+    def show_gameover_comp(self):
+        print("Do you want to watch another match? (yes or no)")
+        return hinder_invalid_input(SORRY_YES_NO, "yes no")

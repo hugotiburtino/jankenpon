@@ -88,7 +88,7 @@ class Game:
         """
         self.play_game()
         self.get_who_won()
-        self.show_gameover()
+        self.endgame()
 
     def play_game(self):
         """
@@ -146,7 +146,7 @@ class Game:
         self.score_p1 = 0
         self.score_p2 = 0
 
-    def show_gameover(self):
+    def endgame(self):
         """
         Shows the "game over" message and, if the user was playing,
         asks if the user wants to play again and if she/he
@@ -156,24 +156,16 @@ class Game:
         """
         print("\n    Game over!\n")
         if isinstance(self.p1, HumanPlayer):
-            print("Do you want to play again? (yes or no)")
-            play_again = hinder_invalid_input(SORRY_YES_NO, "yes no")
-            if play_again == "yes":
-                print("Do you want to know your opponent's strategy? (yes or no)")
-                reveal_mode = hinder_invalid_input(SORRY_YES_NO, "yes no")
-                if reveal_mode == "yes":
-                    self.reveal_strategy_mode = True
-                else:
-                    self.reveal_strategy_mode = False
+            choices = self.displayer.show_gameover_hum()
+            if choices["playagain"] is True:
+                self.reveal_strategy_mode = choices["reveal_mode"]
                 self.p2 = random.choice(OPPONENTS)()
                 self.run_game()
             else:
                 self.__init__(None, None)
                 self.intro()
         else:
-            print("Do you want to watch another match? (yes or no)")
-            see_another_match = hinder_invalid_input(SORRY_YES_NO, "yes no")
-            if see_another_match == "yes":
+            if self.displayer.show_gameover_comp() == "yes":
                 self.p1 = random.choice(OPPONENTS)()
                 self.p2 = random.choice(OPPONENTS)()
                 self.run_game()
