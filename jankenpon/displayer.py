@@ -8,7 +8,9 @@ from jankenpon.resources import (
     MENU_OPTIONS_PROMPT,
     INTRO,
     SORRY_YES_NO,
+    HANDS
 )
+from jankenpon.player_classes import MOVES
 from jankenpon.tools import hinder_invalid_input
 
 
@@ -55,7 +57,7 @@ class Displayer:
     def show_round(self, round_num):
         print("\x1b[6;37;41m" + f" X---- ROUND {round_num} ----X " + "\x1b[0m")
 
-    def show_options(self):
+    def show_move_options(self):
         print(
             "\x1b[33m"
             + "r"
@@ -78,11 +80,12 @@ class Displayer:
         p2,
         move1,
         move2,
-        image1,
-        image2,
-        strategy1,
-        strategy2,
     ):
+        image1 = HANDS[MOVES.index(move1)]
+        image2 = HANDS[MOVES.index(move2)]
+
+        strategy1 = p1.tactic()
+        strategy2 = p2.tactic()
         if strategy1 == "" and reveal_strategy_mode is False:
             print(
                 "\x1b[31m"
@@ -141,7 +144,7 @@ class Displayer:
         print("Do you want to play again? (yes or no)")
         if hinder_invalid_input(SORRY_YES_NO, "yes no") == "yes":
             print("Do you want to know your opponent's strategy? (yes or no)")
-            reveal_mode = hinder_invalid_input(SORRY_YES_NO, "yes no")
+            reveal_mode = hinder_invalid_input(SORRY_YES_NO, ["yes", "no"])
             if reveal_mode == "yes":
                 return {"playagain": True, "reveal_mode": True}
             else:
@@ -151,4 +154,4 @@ class Displayer:
 
     def show_gameover_comp(self):
         print("Do you want to watch another match? (yes or no)")
-        return hinder_invalid_input(SORRY_YES_NO, "yes no")
+        return hinder_invalid_input(SORRY_YES_NO, ["yes", "no"])

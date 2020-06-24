@@ -7,7 +7,6 @@ and reports both player's scores each round as well as the possible winner
 
 import random
 import time
-from jankenpon.resources import HANDS, SORRY_YES_NO
 from jankenpon.player_classes import (
     HumanPlayer,
     RockPlayer,
@@ -100,12 +99,12 @@ class Game:
         for match_round in range(3):
             self.displayer.show_round(match_round + 1)
             if isinstance(self.p1, HumanPlayer):
-                self.displayer.show_options()
+                self.displayer.show_move_options()
             else:
                 time.sleep(4)
             self.play_round()
 
-    def play_round(self):  # TODO: refactor this method, too long
+    def play_round(self):  # TODO: still refactor this method, too long
         """
         Core of the game. Takes the moves of the players, apply the rule to 
         get the score, and display the ASCII arts as well as the names and 
@@ -114,20 +113,12 @@ class Game:
         move1 = self.p1.move()
         self.p2.bad_luck(move1)
         move2 = self.p2.move()
-        image1 = HANDS[MOVES.index(move1)]
-        image2 = HANDS[MOVES.index(move2)]
-        strategy1 = self.p1.tactic()
-        strategy2 = self.p2.tactic()
         self.displayer.display_match(
             self.reveal_strategy_mode,
             self.p1,
             self.p2,
             move1,
             move2,
-            image1,
-            image2,
-            strategy1,
-            strategy2,
         )
         if beats(move1, move2) is True:
             self.score_p1 += 1
