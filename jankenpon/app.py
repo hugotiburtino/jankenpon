@@ -15,9 +15,8 @@ from jankenpon.player_classes import (
     InteligentReflectPlayer,
     ReflectPlayer,
     RandomPlayer,
-    MOVES,
 )
-from jankenpon.tools import hinder_invalid_input, beats
+from jankenpon.tools import beats
 from jankenpon.displayer import Displayer
 
 OPPONENTS = [
@@ -45,7 +44,7 @@ class Game:
 
     def __init__(self, p1, p2):
         """
-        Magic function that starts the game setting players and values 
+        Magic function that starts the game setting players and values
         to default.
         """
         self.p1 = p1
@@ -82,7 +81,7 @@ class Game:
 
     def run_game(self):
         """
-        Calls the stages of the game: 
+        Calls the stages of the game:
         play, get winner and display the game over panel.
         """
         self.play_game()
@@ -106,19 +105,15 @@ class Game:
 
     def play_round(self):  # TODO: still refactor this method, too long
         """
-        Core of the game. Takes the moves of the players, apply the rule to 
-        get the score, and display the ASCII arts as well as the names and 
+        Core of the game. Takes the moves of the players, apply the rule to
+        get the score, and display the ASCII arts as well as the names and
         score. At the end, make the computer player(s) learn from this round.
         """
         move1 = self.p1.move()
         self.p2.bad_luck(move1)
         move2 = self.p2.move()
         self.displayer.display_match(
-            self.reveal_strategy_mode,
-            self.p1,
-            self.p2,
-            move1,
-            move2,
+            self.reveal_strategy_mode, self.p1, self.p2, move1, move2,
         )
         if beats(move1, move2) is True:
             self.score_p1 += 1
@@ -130,7 +125,7 @@ class Game:
 
     def get_who_won(self):
         """
-        Gets the winner from the score and displays him/her. 
+        Gets the winner from the score and displays him/her.
         It also reset the score.
         """
         self.displayer.show_winner(self.score_p1, self.score_p2, self.p1, self.p2)

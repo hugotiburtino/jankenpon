@@ -1,14 +1,13 @@
 # displayer.py
 
 import sys
-import random
 from jankenpon.resources import (
     HOW_TO_PLAY,
     MENU_OPTIONS,
     MENU_OPTIONS_PROMPT,
     INTRO,
     SORRY_YES_NO,
-    HANDS
+    HANDS,
 )
 from jankenpon.player_classes import MOVES
 from jankenpon.tools import hinder_invalid_input
@@ -35,19 +34,19 @@ class Displayer:
         str
            the kind of game, namely human vs computer or computer vs computer
         """
-        self.game_choice = hinder_invalid_input(MENU_OPTIONS_PROMPT, MENU_OPTIONS)
+        game_choice = hinder_invalid_input(MENU_OPTIONS_PROMPT, MENU_OPTIONS)
 
-        if self.game_choice == "1":
+        if game_choice == "1":
             return "human_vs_computer"
 
-        elif self.game_choice == "2":
+        elif game_choice == "2":
             return "computer_vs_computer"
 
-        elif self.game_choice == "3":
+        elif game_choice == "3":
             print(HOW_TO_PLAY)
             self.choose_game()
 
-        elif self.game_choice in ["q", "quit", "exit", "e"]:
+        elif game_choice in ["q", "quit", "exit", "e"]:
             print("Bye bye!")
             sys.exit()
 
@@ -73,14 +72,7 @@ class Displayer:
             + "cissors?"
         )
 
-    def display_match(
-        self,
-        reveal_strategy_mode,
-        p1,
-        p2,
-        move1,
-        move2,
-    ):
+    def display_match(self, reveal_strategy_mode, p1, p2, move1, move2):
         image1 = HANDS[MOVES.index(move1)]
         image2 = HANDS[MOVES.index(move2)]
 
@@ -147,10 +139,8 @@ class Displayer:
             reveal_mode = hinder_invalid_input(SORRY_YES_NO, ["yes", "no"])
             if reveal_mode == "yes":
                 return {"playagain": True, "reveal_mode": True}
-            else:
-                return {"playagain": True, "reveal_mode": False}
-        else:
-            return {"playagain": False}
+            return {"playagain": True, "reveal_mode": False}
+        return {"playagain": False}
 
     def show_gameover_comp(self):
         print("Do you want to watch another match? (yes or no)")

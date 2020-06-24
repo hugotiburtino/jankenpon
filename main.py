@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''
+"""
 Copyright (c) 2020, Hugo Tiburtino
 All rights reserved.
 
@@ -24,15 +24,15 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-'''
+"""
 
 import sys
 
 from jankenpon.app import Game
 
-if __name__ == '__main__':
-  try:
-    Game(None, None).intro()
-  except KeyboardInterrupt:
-    print('\n Bye bye')
-    sys.exit()
+if __name__ == "__main__":
+    try:
+        Game(None, None).intro()
+    except KeyboardInterrupt:
+        print("\n Bye bye")
+        sys.exit()

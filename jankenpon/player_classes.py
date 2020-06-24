@@ -8,7 +8,7 @@ class Player:
     """
     Abstract class of player
 
-    The only really implemented method is set_name, which works only 
+    The only really implemented method is set_name, which works only
     for computer players. The human player overrides this method.
     ...
 
@@ -41,20 +41,17 @@ class Player:
         """
         Makes a move in the round
         """
-        pass
 
     def bad_luck(self, their_move):
         """
         Only works for the BadLuckPlayer
         """
-        pass
 
     def learn(self, my_move, their_move):
         """
         Method that stores the moves of a round, in order that the player
         can use this knowledge the next round
         """
-        pass
 
     def tactic(self):
         """
@@ -120,7 +117,7 @@ class ReflectPlayer(Player):
     Attribute
     ---------
     nextmove : str
-        The next move based on what this player learned from the 
+        The next move based on what this player learned from the
         previous round
     """
 
@@ -134,17 +131,16 @@ class ReflectPlayer(Player):
     def move(self):
         """
         Returns the move of the player. If it is on the round 1, that means,
-        it cannot imitate the last move of its opponent, than it makes a 
+        it cannot imitate the last move of its opponent, than it makes a
         random move.
         """
         if self.nextmove == "I don't know":
             return random.choice(MOVES)
-        else:
-            return self.nextmove
+        return self.nextmove
 
     def learn(self, my_move, their_move):
         """
-        Sets nextmove attribute as equal to what the opponent played in the 
+        Sets nextmove attribute as equal to what the opponent played in the
         current round
         """
         self.nextmove = their_move
@@ -158,13 +154,13 @@ class InteligentReflectPlayer(Player):
     Class of the inteligent reflect player.
 
     It assumes that the opponent is going to repeat his/her/its last move
-    and tries to beat it. For example, if at round 1 the oppenent played 
+    and tries to beat it. For example, if at round 1 the oppenent played
     'rock', this player is going to play 'paper' at round 2.
 
     Attribute
     ---------
     nextmove : str
-        The next move based on what this player learned from the 
+        The next move based on what this player learned from the
         previous round
     """
 
@@ -177,18 +173,17 @@ class InteligentReflectPlayer(Player):
 
     def move(self):
         """
-        Returns the move of the player. 
-        If it is on the round 1, that means, it cannot imitate the last 
+        Returns the move of the player.
+        If it is on the round 1, that means, it cannot imitate the last
         move of its opponent, then it makes a random move.
         """
         if self.nextmove == "I don't know":
             return random.choice(MOVES)
-        else:
-            return self.nextmove
+        return self.nextmove
 
     def learn(self, my_move, their_move):
         """
-        Sets nextmove attribute to beat what the opponent played in the 
+        Sets nextmove attribute to beat what the opponent played in the
         current round
         """
         if their_move == "rock":
@@ -212,7 +207,7 @@ class BadLuckPlayer(Player):
     Attribute
     ---------
     nextmove : str
-        The next move based on what this player learned from the 
+        The next move based on what this player learned from the
         previous round
     """
 

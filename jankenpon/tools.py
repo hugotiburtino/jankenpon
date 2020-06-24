@@ -16,7 +16,7 @@ def get_computer_name():
     -------
     Returns
     str
-       The name of the opponent, chosen from a list, according to the 
+       The name of the opponent, chosen from a list, according to the
        current index
     """
     global opponent_name_index
@@ -58,7 +58,7 @@ def hinder_invalid_input(prompt_message, possibilities):
     ----------
     Parameters
         prompt_message : str
-            The message that the user gets while he/she don't enter a 
+            The message that the user gets while he/she don't enter a
             valid option
         possibilities: [str]
             The options that the user has
@@ -68,8 +68,7 @@ def hinder_invalid_input(prompt_message, possibilities):
         user_input = interpret_abbreviation(user_input)
         if user_input in possibilities:
             return user_input
-        else:
-            print(prompt_message)
+        print(prompt_message)
 
 
 def beats(one, two):
