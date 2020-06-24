@@ -134,7 +134,7 @@ class Displayer:
 
     def show_gameover_hum(self):
         print("Do you want to play again? (yes or no)")
-        if hinder_invalid_input(SORRY_YES_NO, "yes no") == "yes":
+        if hinder_invalid_input(SORRY_YES_NO, ["yes", "no"]) == "yes":
             print("Do you want to know your opponent's strategy? (yes or no)")
             reveal_mode = hinder_invalid_input(SORRY_YES_NO, ["yes", "no"])
             if reveal_mode == "yes":
