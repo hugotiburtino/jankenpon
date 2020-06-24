@@ -97,8 +97,8 @@ class Game:
         print("\n     Game start!\n")
         if self.p1.get_name() == self.p2.get_name():
             self.p2.name = self.p1.get_name() + " Bad Twin"
-        for round in range(3):
-            self.displayer.show_round(round + 1)
+        for match_round in range(3):
+            self.displayer.show_round(match_round + 1)
             if isinstance(self.p1, HumanPlayer):
                 self.displayer.show_options()
             else:
