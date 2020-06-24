@@ -103,7 +103,7 @@ class Game:
                 time.sleep(4)
             self.play_round()
 
-    def play_round(self):  # TODO: still refactor this method, too long
+    def play_round(self):
         """
         Core of the game. Takes the moves of the players, apply the rule to
         get the score, and display the ASCII arts as well as the names and
@@ -115,13 +115,16 @@ class Game:
         self.displayer.display_match(
             self.reveal_strategy_mode, self.p1, self.p2, move1, move2,
         )
+        self.give_points(move1, move2)
+        self.displayer.show_score(self.p1, self.p2, self.score_p1, self.score_p2)
+        self.p1.learn(move1, move2)
+        self.p2.learn(move2, move1)
+
+    def give_points(self, move1, move2):
         if beats(move1, move2) is True:
             self.score_p1 += 1
         elif beats(move2, move1) is True:
             self.score_p2 += 1
-        self.displayer.show_score(self.p1, self.p2, self.score_p1, self.score_p2)
-        self.p1.learn(move1, move2)
-        self.p2.learn(move2, move1)
 
     def get_who_won(self):
         """
