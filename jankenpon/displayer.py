@@ -1,4 +1,4 @@
-# menu.py
+# displayer.py
 
 import sys
 import random
@@ -122,3 +122,11 @@ class Displayer:
             + "\x1b[0m"
             + f": {score_p2} point(s)"
         )
+
+    def show_winner(self, score_p1, score_p2, p1, p2):
+        if score_p1 > score_p2:
+            print("\n\x1b[31m" + f"{p1.get_name()} has won!" + "\x1b[0m")
+        elif score_p1 < score_p2:
+            print("\n\x1b[34m" + f"{p2.get_name()} has won!" + "\x1b[0m")
+        else:
+            print("\n\x1b[1m" + "It is a tie!" + "\x1b[0m")

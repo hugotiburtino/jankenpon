@@ -142,12 +142,7 @@ class Game:
         Gets the winner from the score and displays him/her. 
         It also reset the score.
         """
-        if self.score_p1 > self.score_p2:
-            print("\n\x1b[31m" + f"{self.p1.get_name()} has won!" + "\x1b[0m")
-        if self.score_p1 < self.score_p2:
-            print("\n\x1b[34m" + f"{self.p2.get_name()} has won!" + "\x1b[0m")
-        if self.score_p1 == self.score_p2:
-            print("\n\x1b[1m" + "It is a tie!" + "\x1b[0m")
+        self.displayer.show_winner(self.score_p1, self.score_p2, self.p1, self.p2)
         self.score_p1 = 0
         self.score_p2 = 0
 
